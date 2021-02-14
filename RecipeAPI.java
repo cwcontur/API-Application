@@ -1,3 +1,4 @@
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.http.HttpClient;
@@ -18,12 +19,15 @@ public class RecipeAPI {
 
             JSONObject obj = new JSONObject(response.body());
 
-            String recipe = obj.getString("title");
+            JSONArray recipeArray = obj.getJSONArray("recipes");//Accesses JSON Array 'recipes'
 
-            System.out.println(response.body());
+            JSONObject test = recipeArray.getJSONObject(0);//Gets the first object in the array to access the necessary information
 
-            System.out.println(recipe);
-            
+            String recipeTitle = test.getString("title");//Pulls the name of the random recipe
+
+            System.out.println(response.body());//Prints JSON output
+            System.out.println(recipeTitle);//Prints recipe name
+
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }
